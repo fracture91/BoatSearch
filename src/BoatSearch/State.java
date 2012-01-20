@@ -150,7 +150,7 @@ public class State {
 		//compare the next bank people are going to with the current bank
 		final Set<Person> nextBank = boatNorth ? next.getSouthernBank() : next.getNorthernBank();
 		final Set<Person> currentBank = boatNorth ? southernBank : northernBank;
-		nextBank.remove(currentBank); //nextBank now contains passengers
+		nextBank.removeAll(currentBank); //nextBank now contains passengers
 		return Collections.max(nextBank).getWeight();
 	}
 	
