@@ -21,12 +21,12 @@ public class Person implements Comparable<Person> {
 	}
 	
 	public String toString() {
-		return "Person(" + this.weight + ")";
+		return "Person(" + weight + ")";
 	}
 
 	@Override
 	public int compareTo(Person o) {
-		return this.weight - o.getWeight();
+		return weight - o.getWeight();
 	}
 	
 	

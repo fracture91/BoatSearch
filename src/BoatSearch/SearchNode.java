@@ -4,6 +4,10 @@ import java.util.Set;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+/**
+ * A node in the search tree that contains a state and the total cost
+ * to reach this state.
+ */
 public class SearchNode extends DefaultMutableTreeNode {
 
 	private static final long serialVersionUID = 1845825236979052915L;
@@ -36,7 +40,7 @@ public class SearchNode extends DefaultMutableTreeNode {
 
 	@Override
 	public int hashCode() {
-		return this.state.hashCode();
+		return state.hashCode();
 	}
 
 	@Override
@@ -50,7 +54,7 @@ public class SearchNode extends DefaultMutableTreeNode {
 		if (!(obj instanceof SearchNode)) {
 			return false;
 		}
-		SearchNode other = (SearchNode) obj;
+		final SearchNode other = (SearchNode) obj;
 		if (state == null) {
 			if (other.state != null) {
 				return false;
@@ -65,9 +69,9 @@ public class SearchNode extends DefaultMutableTreeNode {
 	 * Insert successors of this node's state as children of this node.
 	 */
 	public void expand() {
-		Set<State> successors = state.getAllSuccessors();
+		final Set<State> successors = state.getAllSuccessors();
 		for(State i : successors) {
-			int cost = state.getTransitionCost(i) + this.totalCost;
+			int cost = state.getTransitionCost(i) + totalCost;
 			this.insert(new SearchNode(i, cost), this.getChildCount());
 		}
 	}

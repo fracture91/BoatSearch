@@ -8,23 +8,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 public class GraphSearch {
-	/*
-	function GRAPH-SEARCH(prohdeml returns a solution. or failure
-	initialize the frontier using the initial stale of problem
-	initialize the explored set to be empty
-	loop do
-		if the frontier is empty then return failure
-		choose a leaf node and remove it from the frontier
-		if the node contains a goal state then return the corresponding solution
-		add the node to the explored set
-		expand the chosen nude, adding the resulting nodes to the frontier only if not in the frontier or explored set 
-	 */
 	
-	private SearchNode root;
+	private final SearchNode root;
 	private SearchNode current;
 	private Set<SearchNode> frontier;
 	private Set<SearchNode> explored;
@@ -32,14 +20,19 @@ public class GraphSearch {
 	
 	
 	public GraphSearch(State initialState) {
-		this.root = new SearchNode(initialState, 0);
+		root = new SearchNode(initialState, 0);
 	}
 	
 	//breadth first for now - LIFO
+	/**
+	 * Based on the GRAPH-SEARCH algorithm in the book (Russell p. 77)
+	 * @return A Solution containing the path to a goal state,
+	 * or null if not found.
+	 */
 	public Solution findSolution() {
 		solution = new Solution();
 		frontier = new LinkedHashSet<SearchNode>();
-		frontier.add(this.root);
+		frontier.add(root);
 		explored = new HashSet<SearchNode>();
 		
 		while(!frontier.isEmpty()) {
