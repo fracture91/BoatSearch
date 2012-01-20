@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 /**
- * LIFO frontier for breadth-first search
+ * FIFO frontier for breadth-first search
  */
 public class BreadthFrontier implements Frontier {
 
