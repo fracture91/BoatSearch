@@ -29,10 +29,10 @@ public class Main {
 		s.close();
 		
 		final State initialState = new State(people, new HashSet<Person>(), false);
-		final GraphSearch searcher = new GraphSearch(initialState);
+		final GraphSearch bfsSearcher = new GraphSearch(initialState, BreadthFrontier.class);
 		
 		final FileWriter output = new FileWriter("output.txt");
-		output.write("BFS " + searcher.findSolution());
+		output.write("BFS " + bfsSearcher.findSolution());
 		output.close();
 		
 		//so looking at output is less painful

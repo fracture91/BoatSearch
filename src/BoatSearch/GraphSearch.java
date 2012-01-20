@@ -3,8 +3,6 @@ package BoatSearch;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,13 +12,15 @@ public class GraphSearch {
 	
 	private final SearchNode root;
 	private SearchNode current;
-	private Set<SearchNode> frontier;
+	private final Class<? extends Frontier> frontierClass;
+	private Frontier frontier;
 	private Set<SearchNode> explored;
 	private Solution solution;
 	
 	
-	public GraphSearch(State initialState) {
+	public GraphSearch(State initialState, Class<? extends Frontier> frontierClass) {
 		root = new SearchNode(initialState, 0);
+		this.frontierClass = frontierClass;
 	}
 	
 	//breadth first for now - LIFO
@@ -31,14 +31,21 @@ public class GraphSearch {
 	 */
 	public Solution findSolution() {
 		solution = new Solution();
-		frontier = new LinkedHashSet<SearchNode>();
+		
+		//eugh
+		try {
+			frontier = frontierClass.newInstance();
+		} catch (InstantiationException e1) {
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			e1.printStackTrace();
+		}
+		
 		frontier.add(root);
 		explored = new HashSet<SearchNode>();
 		
 		while(!frontier.isEmpty()) {
-			Iterator<SearchNode> it = frontier.iterator();
-			current = it.next();
-			it.remove();
+			current = frontier.getNext();
 			
 			if(current.getState().isGoal()) {
 				TreeNode[] path = current.getPath();
