@@ -1,5 +1,6 @@
 package BoatSearch;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,12 +19,20 @@ public class State {
 		this.boatNorth = boatNorth;
 	}
 
+	/**
+	 * @return A clone of the set of people on the southern bank
+	 */
+	@SuppressWarnings("unchecked")
 	public Set<Person> getSouthernBank() {
-		return southernBank;
+		return (Set<Person>) ((HashSet<Person>) southernBank).clone();
 	}
 	
+	/**
+	 * @return A clone of the set of people on the northern bank
+	 */
+	@SuppressWarnings("unchecked")
 	public Set<Person> getNorthernBank() {
-		return northernBank;
+		return (Set<Person>) ((HashSet<Person>) northernBank).clone();
 	}
 
 	public boolean isBoatNorth() {
@@ -48,7 +57,7 @@ public class State {
 			for(Person p2 : source) {
 				@SuppressWarnings("unchecked")
 				Set<Person> innerPassengers = (Set<Person>) passengers.clone();
-				passengers.add(p2);
+				innerPassengers.add(p2);
 				successors.add(getSuccessor(innerPassengers));
 			}
 		}
@@ -63,8 +72,8 @@ public class State {
 	 */
 	@SuppressWarnings("unchecked")
 	private State getSuccessor(Set<Person> passengers) {
-		final Set<Person> nextSouthern = (Set<Person>) ((HashSet<Person>) southernBank).clone();
-		final Set<Person> nextNorthern = (Set<Person>) ((HashSet<Person>) northernBank).clone();
+		final Set<Person> nextSouthern = getSouthernBank();
+		final Set<Person> nextNorthern = getNorthernBank();
 		final Set<Person> source = boatNorth ? nextNorthern : nextSouthern;
 		final Set<Person> destination = boatNorth ? nextSouthern : nextNorthern;
 		source.removeAll(passengers);
@@ -120,6 +129,29 @@ public class State {
 			return false;
 		}
 		return true;
+	}
+	
+	public String toString() {
+		return "State(" + southernBank + ", " + northernBank + ", " + boatNorth + ")";
+	}
+
+	/**
+	 * @return true if this state represents a goal state
+	 * a state is a goal state when the southern bank is empty
+	 */
+	public boolean isGoal() {
+		return southernBank.isEmpty();
+	}
+
+	/**
+	 * Given a valid successor state, return the cost of transitioning to it
+	 */
+	public int getTransitionCost(State next) {
+		//compare the next bank people are going to with the current bank
+		final Set<Person> nextBank = boatNorth ? next.getSouthernBank() : next.getNorthernBank();
+		final Set<Person> currentBank = boatNorth ? southernBank : northernBank;
+		nextBank.remove(currentBank); //nextBank now contains passengers
+		return Collections.max(nextBank).getWeight();
 	}
 	
 }

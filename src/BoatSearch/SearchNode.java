@@ -1,5 +1,7 @@
 package BoatSearch;
 
+import java.util.Set;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 
 public class SearchNode extends DefaultMutableTreeNode {
@@ -30,6 +32,49 @@ public class SearchNode extends DefaultMutableTreeNode {
 	 */
 	public State getState() {
 		return state;
+	}
+
+	@Override
+	public int hashCode() {
+		return this.state.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof SearchNode)) {
+			return false;
+		}
+		SearchNode other = (SearchNode) obj;
+		if (state == null) {
+			if (other.state != null) {
+				return false;
+			}
+		} else if (!state.equals(other.state)) {
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Insert successors of this node's state as children of this node.
+	 */
+	public void expand() {
+		Set<State> successors = state.getAllSuccessors();
+		for(State i : successors) {
+			int cost = state.getTransitionCost(i) + this.totalCost;
+			this.insert(new SearchNode(i, cost), this.getChildCount());
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "SearchNode (" + totalCost + ", " + state + ")";
 	}
 	
 }

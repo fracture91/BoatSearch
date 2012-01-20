@@ -5,7 +5,7 @@ package BoatSearch;
  * Didn't want to use plain ints because multiple people can have the same weight,
  * but still be considered different people (!p1.equals(p2)).
  */
-public class Person {
+public class Person implements Comparable<Person> {
 	private final int weight;
 	
 	/**
@@ -19,4 +19,16 @@ public class Person {
 	public int getWeight() {
 		return weight;
 	}
+	
+	public String toString() {
+		return "Person(" + this.weight + ")";
+	}
+
+	@Override
+	public int compareTo(Person o) {
+		return this.weight - o.getWeight();
+	}
+	
+	
+	
 }
