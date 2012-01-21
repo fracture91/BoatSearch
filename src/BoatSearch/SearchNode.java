@@ -84,9 +84,27 @@ public class SearchNode extends DefaultMutableTreeNode
 
 	@Override
 	public int compareTo(SearchNode o) {
+		if(this.equals(o)) {
+			return 0;
+		}
 		final int myCost = totalCost + state.getHeuristicCost();
 		final int otherCost = o.totalCost + o.getState().getHeuristicCost();
-		return myCost - otherCost;
+		int diff = myCost - otherCost;
+		if(diff == 0) {
+			/*
+			 * @see AStarFrontier
+			 * SortedSet considers two elements equal - and consequently not unique
+			 * or both fit for inclusion in the set - if compareTo returns 0.
+			 * (A normal set uses the result of the equals method.)
+			 * Since there are cases where nodes can have the same cost but have
+			 * very different states, we want to include both nodes in that case.
+			 * This little hack does that.
+			 * 
+			 * http://stackoverflow.com/questions/1510503/java-sortedset-comparator-consistency-with-equals-question
+			 */
+			return System.identityHashCode(this) > System.identityHashCode(o) ? 1 : -1;
+		}
+		return diff;
 	}
 	
 	
