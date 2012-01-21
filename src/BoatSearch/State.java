@@ -76,7 +76,6 @@ public class State {
 	 * @returns one successor state
 	 * @param passengers The passengers to move
 	 */
-	@SuppressWarnings("unchecked")
 	private State getSuccessor(Set<Person> passengers) {
 		final Set<Person> nextSouthern = getSouthernBank();
 		final Set<Person> nextNorthern = getNorthernBank();
