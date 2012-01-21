@@ -8,7 +8,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
  * A node in the search tree that contains a state and the total cost
  * to reach this state.
  */
-public class SearchNode extends DefaultMutableTreeNode {
+public class SearchNode extends DefaultMutableTreeNode
+		implements Comparable<SearchNode> {
 
 	private static final long serialVersionUID = 1845825236979052915L;
 	private final int totalCost;
@@ -80,5 +81,14 @@ public class SearchNode extends DefaultMutableTreeNode {
 	public String toString() {
 		return "SearchNode (" + totalCost + ", " + state + ")";
 	}
+
+	@Override
+	public int compareTo(SearchNode o) {
+		final int myCost = totalCost + state.getHeuristicCost();
+		final int otherCost = o.totalCost + o.getState().getHeuristicCost();
+		return myCost - otherCost;
+	}
+	
+	
 	
 }

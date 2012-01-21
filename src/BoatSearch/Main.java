@@ -35,7 +35,10 @@ public class Main {
 		output.write("BFS " + bfsSearcher.findSolution() + "\n\n");
 		
 		final GraphSearch dfsSearcher = new GraphSearch(initialState, new DepthFrontier());
-		output.write("DFS " + dfsSearcher.findSolution());
+		output.write("DFS " + dfsSearcher.findSolution() + "\n\n");
+		
+		final GraphSearch aStarSearcher = new GraphSearch(initialState, new AStarFrontier());
+		output.write("A* " + aStarSearcher.findSolution());
 		
 		output.close();
 		

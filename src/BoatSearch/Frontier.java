@@ -1,5 +1,9 @@
 package BoatSearch;
 
+/**
+ * Represents the frontier set in the GraphSearch algorithm.
+ * Implementing classes are basically adapters for some backing collection.
+ */
 public interface Frontier {
 	
 	/**

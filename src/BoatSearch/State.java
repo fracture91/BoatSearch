@@ -159,5 +159,12 @@ public class State {
 		nextBank.removeAll(currentBank); //nextBank now contains passengers
 		return Collections.max(nextBank).getWeight();
 	}
+
+	/**
+	 * @return the estimated cost of reaching the goal state from this state
+	 */
+	public int getHeuristicCost() {
+		return isGoal() ? 0 : Collections.max(southernBank).getWeight();
+	}
 	
 }
