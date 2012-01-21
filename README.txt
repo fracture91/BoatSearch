@@ -3,7 +3,8 @@ CS 4341 C12 - Artificial Intelligence
 Professor Chernova
 
 Author: Andrew Hurle (andrew.d.hurle)
-To run: //todo
+To run: Extract BoatSearch.jar to your working directory containing an input.txt file
+		-bash-3.2$ java -jar BoatSearch.jar
 
 Purpose
 =====
@@ -12,6 +13,8 @@ Starting state is provided by input.txt, output written to output.txt.
 
 Clarifications
 =====
+output.txt is also printed to standard out.  Redirect to a temp file if you don't want to see it.
+
 Person instances are considered different from each other even if they have the same weight.
 This can lead to what looks like redundant expansions while searching.
 
