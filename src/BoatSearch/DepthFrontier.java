@@ -10,7 +10,7 @@ public class DepthFrontier implements Frontier {
 	private Stack<SearchNode> contents;
 	
 	public DepthFrontier() {
-		contents = new Stack<SearchNode>();
+		reset();
 	}
 	
 	@Override
@@ -30,6 +30,11 @@ public class DepthFrontier implements Frontier {
 	@Override
 	public SearchNode getNext() {
 		return contents.pop();
+	}
+
+	@Override
+	public void reset() {
+		contents = new Stack<SearchNode>();
 	}
 
 }

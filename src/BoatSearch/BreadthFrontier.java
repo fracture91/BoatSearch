@@ -11,7 +11,7 @@ public class BreadthFrontier implements Frontier {
 	private LinkedHashSet<SearchNode> contents;
 	
 	public BreadthFrontier() {
-		contents = new LinkedHashSet<SearchNode>();
+		reset();
 	}
 	
 	@Override
@@ -30,6 +30,11 @@ public class BreadthFrontier implements Frontier {
 		SearchNode next = it.next();
 		it.remove();
 		return next;
+	}
+
+	@Override
+	public void reset() {
+		contents = new LinkedHashSet<SearchNode>();
 	}
 
 }

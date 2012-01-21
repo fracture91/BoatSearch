@@ -19,4 +19,9 @@ public interface Frontier {
 	 * @return The next node to examine
 	 */
 	public SearchNode getNext();
+	
+	/**
+	 * Reset the Frontier to the state it started in.
+	 */
+	public void reset();
 }

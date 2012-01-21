@@ -31,10 +31,10 @@ public class Main {
 		final State initialState = new State(people, new HashSet<Person>(), false);
 		final FileWriter output = new FileWriter("output.txt");
 		
-		final GraphSearch bfsSearcher = new GraphSearch(initialState, BreadthFrontier.class);
+		final GraphSearch bfsSearcher = new GraphSearch(initialState, new BreadthFrontier());
 		output.write("BFS " + bfsSearcher.findSolution() + "\n\n");
 		
-		final GraphSearch dfsSearcher = new GraphSearch(initialState, DepthFrontier.class);
+		final GraphSearch dfsSearcher = new GraphSearch(initialState, new DepthFrontier());
 		output.write("DFS " + dfsSearcher.findSolution());
 		
 		output.close();

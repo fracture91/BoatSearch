@@ -8,19 +8,26 @@ import java.util.Set;
 
 import javax.swing.tree.TreeNode;
 
+/**
+ * Finds a path to a goal state from the initial state.
+ */
 public class GraphSearch {
 	
 	private final SearchNode root;
 	private SearchNode current;
-	private final Class<? extends Frontier> frontierClass;
-	private Frontier frontier;
+	private final Frontier frontier;
 	private Set<SearchNode> explored;
 	private Solution solution;
 	
-	
-	public GraphSearch(State initialState, Class<? extends Frontier> frontierClass) {
+	/**
+	 * Create a GraphSearch instance with the given initial State and Frontier
+	 * @param initialState The initial state of the problem
+	 * @param frontier The Frontier to use when searching.
+	 * 			You can use frontiers that behave differently to use BFS, DFS, or A* search.
+	 */
+	public GraphSearch(State initialState, Frontier frontier) {
 		root = new SearchNode(initialState, 0);
-		this.frontierClass = frontierClass;
+		this.frontier = frontier;
 	}
 	
 	//breadth first for now - LIFO
@@ -31,15 +38,7 @@ public class GraphSearch {
 	 */
 	public Solution findSolution() {
 		solution = new Solution();
-		
-		//eugh
-		try {
-			frontier = frontierClass.newInstance();
-		} catch (InstantiationException e1) {
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			e1.printStackTrace();
-		}
+		frontier.reset();
 		
 		frontier.add(root);
 		explored = new HashSet<SearchNode>();

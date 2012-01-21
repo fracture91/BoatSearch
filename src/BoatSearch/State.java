@@ -13,6 +13,12 @@ public class State {
 	private final Set<Person> northernBank;
 	private final boolean boatNorth;
 	
+	/**
+	 * Create an instance of a State with the given properties.
+	 * @param southernBank Set of people on the southern bank
+	 * @param northernBank Set of people on the northern bank
+	 * @param boatNorth Whether the boat is on the north bank or not
+	 */
 	public State(Set<Person> southernBank, Set<Person> northernBank, boolean boatNorth) {
 		this.southernBank = southernBank;
 		this.northernBank = northernBank;
